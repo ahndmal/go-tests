@@ -9,8 +9,8 @@ import (
 func TestAsync2(t *testing.T) {
 	fmt.Println("> start")
 
-	go compute(10)
-	go compute(10)
+	go compute2(10)
+	go compute2(10)
 
 	time.Sleep(3000)
 
@@ -19,7 +19,7 @@ func TestAsync2(t *testing.T) {
 
 }
 
-func compute(value int) {
+func compute2(value int) {
 	for i := 0; i < value; i++ {
 		time.Sleep(time.Second)
 		fmt.Println(i)
