@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 )
@@ -40,30 +41,35 @@ func MyFunc(wg *sync.WaitGroup) {
 }
 
 func main() {
+	str := "Hello"
+	res := strings.Split(str, "")
+	for _, s := range res {
+		println(s)
+	}
+
 	urls := []string{
-		"https://us-central1-andmal-bot.cloudfunctions.net/java-workouts-dstore-mob", // java
-		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-slack-atlas-go",       // go
-		"https://us-central1-andmal-bot.cloudfunctions.net/node2",                    // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/go-perf-test",             // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/pyth3",                    // python
-		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",                  // dotnet
+		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test", // java
+		"https://us-central1-andmal-bot.cloudfunctions.net/node2",              // node
+		"https://us-central1-andmal-bot.cloudfunctions.net/go-perf-test",       // node
+		"https://us-central1-andmal-bot.cloudfunctions.net/python-perf-test",   // python
+		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",            // dotnet
 	}
 
 	//OneUrlReq(urls[0], 20)
 	//OneUrlReq(urls[1], 20)
 	//OneUrlReq(urls[2], 100)
-	OneUrlReq(urls[3], 100)
+	//OneUrlReq(urls[3], 100)
 	//OneUrlReq(urls[4], 20)
 
-	//var wg sync.WaitGroup
-	//for _, url := range urls {
-	//	wg.Add(1)
-	//	go func(url string) {
-	//		OneUrlReq(url, 70)
-	//		wg.Done()
-	//	}(url)
-	//}
-	//wg.Wait() // block
+	var wg sync.WaitGroup
+	for _, url := range urls {
+		wg.Add(1)
+		go func(url string) {
+			OneUrlReq(url, 30)
+			wg.Done()
+		}(url)
+	}
+	wg.Wait() // block
 
 	//time.Sleep(20000)
 
