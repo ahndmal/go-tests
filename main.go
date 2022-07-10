@@ -101,7 +101,6 @@ func AllLinks(urls []string) {
 
 //
 //
-//
 
 func WaitEx2() {
 	var wg sync.WaitGroup
