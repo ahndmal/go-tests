@@ -13,7 +13,7 @@ var urls = []string{
 	"https://example.com",
 }
 
-func LinksStatusTest(t *testing.T) {
+func TestLinksStatus(t *testing.T) {
 	fmt.Println("WaitGroup init")
 	http.HandleFunc("/", fetchStatus)
 	log.Fatal(http.ListenAndServe("localhost:8080", nil))
