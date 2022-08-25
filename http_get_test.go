@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"sync"
 	"testing"
@@ -21,7 +22,11 @@ func ExampleWaitGroup() {
 			// Decrement the counter when the goroutine completes.
 			defer wg.Done()
 			// Fetch the URL.
-			http.Get(url)
+			response, err := http.Get(url)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			log.Println(response)
 		}(url)
 	}
 	// Wait for all HTTP fetches to complete.
