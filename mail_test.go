@@ -9,6 +9,12 @@ import (
 )
 
 func TestMail(t *testing.T) {
+	/*
+		SMTP	smtp.porkbun.com	587	STARTTLS
+		SMTP	smtp.porkbun.com	465	Implicit TLS
+		IMAP	imap.porkbun.com	993	SSL (SSL/TLS)
+		POP	pop.porkbun.com	995	SSL (SSL/TLS)
+	*/
 	// Connect to the remote SMTP server.
 	//client, err := smtp.Dial("smtp.porkbun.com:587")
 	//if err != nil {
@@ -22,20 +28,20 @@ func TestMail(t *testing.T) {
 	//if err := client.Rcpt("mail@gmail.com"); err != nil {
 	//	log.Fatal(err)
 	//}
-
-	client, err := smtp.Dial("smtp.mailtrap.io:2525")
+	myHost := "imap.porkbun.com:993"
+	client, err := smtp.Dial(myHost)
 	if err != nil {
 		log.Fatalf("Error when dialing connection %e", err)
 	}
 
-	//auth := smtp.PlainAuth("", os.Getenv("PRK_EMAIL"), os.Getenv("PRK_PASS"), "smtp.porkbun.com")
-	auth := smtp.PlainAuth("", os.Getenv("MTRAP_USER"), os.Getenv("MTRAP_PASS"), "smtp.mailtrap.io")
+	auth := smtp.PlainAuth("", os.Getenv("PRK_EMAIL"), os.Getenv("PRK_PASS"), "imap.porkbun.com")
+	//auth := smtp.PlainAuth("", os.Getenv("MTRAP_USER"), os.Getenv("MTRAP_PASS"), "smtp.mailtrap.io")
 	err2 := client.Auth(auth)
 	if err2 != nil {
 		log.Fatal(err2)
 	}
 	//err3 := smtp.SendMail("smtp://smtp.porkbun.com:465", auth, "support@bh.com", []string{"quadr@gmail.com"}, []byte("Hello!"))
-	err3 := smtp.SendMail("smtp://smtp.mailtrap.io:2525", auth, "support@beastiehut.com", []string{"quadr988@gmail.com"}, []byte("Hello!"))
+	err3 := smtp.SendMail(myHost, auth, "support@beastiehut.com", []string{"quadr988@gmail.com"}, []byte("Hello!"))
 	if err3 != nil {
 		log.Fatal(err2)
 	}
