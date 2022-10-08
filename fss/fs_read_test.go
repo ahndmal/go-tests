@@ -8,20 +8,22 @@ import (
 	"time"
 )
 
+const DIR_NAME = "/home/malandr/Documents/"
+
 func TestReadDocs(t *testing.T) {
-	docsDir, err := os.ReadDir("/home/andrii/docs")
+	docsDir, err := os.ReadDir(DIR_NAME)
 	if err != nil {
 		return
 	}
-	println(len(docsDir)) // files nums
+	println(len(docsDir)) // files amount
 
 	start := time.Now()
 	var wg sync.WaitGroup
 
-	for i := 2; i < 40; i++ {
+	for i := 1; i <= 400; i++ {
 		wg.Add(1)
 		go func(num int) {
-			fileBts, err := os.ReadFile(fmt.Sprintf("/home/andrii/docs/%s", docsDir[num].Name()))
+			fileBts, err := os.ReadFile(fmt.Sprintf("%s%s", DIR_NAME, docsDir[num].Name()))
 			if err != nil {
 				fmt.Println(err)
 			}

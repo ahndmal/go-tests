@@ -8,8 +8,19 @@ import (
 	"time"
 )
 
+func TestRange2(t *testing.T) {
+	today := time.Now()
+	twoHoursAgo := today.Add(time.Duration(-2) * time.Hour)
+	println(twoHoursAgo.String())
+	//twoHoursAgo.Sub(time.Duration(22) * time.Hour)
+	timer := time.NewTimer(time.Second * 10)
+	t1 := timer.C
+	println(t1)
+	//println(time.Location.String())
+	println(time.Duration.Minutes(3))
+}
+
 func TestDates1(t *testing.T) {
-	//
 	december := time.December
 	year, month, day := time.Now().Date()
 	println(december)

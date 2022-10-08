@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"runtime"
-	"strings"
 	"sync"
 	"time"
 )
@@ -41,12 +40,6 @@ func MyFunc(wg *sync.WaitGroup) {
 }
 
 func main() {
-	str := "Hello"
-	res := strings.Split(str, "")
-	for _, s := range res {
-		println(s)
-	}
-
 	urls := []string{
 		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test", // java
 		"https://us-central1-andmal-bot.cloudfunctions.net/node2",              // node
