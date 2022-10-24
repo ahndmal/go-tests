@@ -1,8 +1,8 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
+	"go-tests/fss"
 	"log"
 	"net/http"
 	"runtime"
@@ -44,12 +44,8 @@ func main() {
 	//ms := net.MySocket{}
 	//ms.Cast()
 
-	msg := "Lorem ipsum"
-	reader := bytes.NewReader([]byte(msg))
-	b1, _ := reader.ReadByte()
-	b2, _ := reader.ReadByte()
-	println(string(b1))
-	println(string(b2))
+	repos := fss.ReadJsonGT()
+	log.Println(repos)
 
 }
 
