@@ -28,32 +28,33 @@ func TestMail(t *testing.T) {
 	//if err := client.Rcpt("mail@gmail.com"); err != nil {
 	//	log.Fatal(err)
 	//}
-	myHost := "imap.porkbun.com:993"
-	client, err := smtp.Dial(myHost)
+	smtpHost := "smtp.porkbun.com" //:465
+	//imapHost := "imap.porkbun.com:993"
+	client, err := smtp.Dial(smtpHost + ":465")
 	if err != nil {
 		log.Fatalf("Error when dialing connection %e", err)
 	}
 
-	auth := smtp.PlainAuth("", os.Getenv("PRK_EMAIL"), os.Getenv("PRK_PASS"), "imap.porkbun.com")
+	auth := smtp.PlainAuth("", os.Getenv("PRK_EMAIL"), os.Getenv("PRK_PASS"), smtpHost)
 	//auth := smtp.PlainAuth("", os.Getenv("MTRAP_USER"), os.Getenv("MTRAP_PASS"), "smtp.mailtrap.io")
 	err2 := client.Auth(auth)
 	if err2 != nil {
 		log.Fatal(err2)
 	}
 	//err3 := smtp.SendMail("smtp://smtp.porkbun.com:465", auth, "support@bh.com", []string{"quadr@gmail.com"}, []byte("Hello!"))
-	err3 := smtp.SendMail(myHost, auth, "support@beastiehut.com", []string{"quadr988@gmail.com"}, []byte("Hello!"))
+	err3 := smtp.SendMail(fmt.Sprintf("%s:465", smtpHost), auth, os.Getenv("PRK_EMAIL"), []string{"quadr988@gmail.com"}, []byte("Hello!"))
 	if err3 != nil {
-		log.Fatal(err2)
+		log.Fatal(err3)
 	}
 
 	// Send the email body.
-	wc, err := client.Data()
+	wc, err4 := client.Data()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err4)
 	}
-	_, err = fmt.Fprintf(wc, "This is the email body")
+	_, err5 := fmt.Fprintf(wc, "This is the email body")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err5)
 	}
 	err = wc.Close()
 	if err != nil {

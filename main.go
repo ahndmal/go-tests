@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"log"
 	"net/http"
@@ -40,6 +41,19 @@ func MyFunc(wg *sync.WaitGroup) {
 }
 
 func main() {
+	//ms := net.MySocket{}
+	//ms.Cast()
+
+	msg := "Lorem ipsum"
+	reader := bytes.NewReader([]byte(msg))
+	b1, _ := reader.ReadByte()
+	b2, _ := reader.ReadByte()
+	println(string(b1))
+	println(string(b2))
+
+}
+
+func UrlPingerAsync2() {
 	urls := []string{
 		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test", // java
 		"https://us-central1-andmal-bot.cloudfunctions.net/node2",              // node
