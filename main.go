@@ -1,51 +1,81 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"go-tests/fss"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"runtime"
 	"sync"
 	"time"
 )
 
-func Async2() {
-	fmt.Println("> start")
-
-	go compute(10)
-	go compute(10)
-
-	//time.Sleep(3000)
-
-	var input string
-	fmt.Scanln(&input)
-
-}
-
-func compute(value int) {
-	for i := 0; i < value; i++ {
-		time.Sleep(time.Second)
-		fmt.Println(i)
-	}
-}
-
-//
-//
-//
-
-func MyFunc(wg *sync.WaitGroup) {
-	time.Sleep(1 * time.Second)
-	fmt.Println("Finished executing Goroutine")
-	wg.Done()
-}
-
 func main() {
-	//ms := net.MySocket{}
-	//ms.Cast()
-
+	// start
 	repos := fss.ReadJsonGT()
-	log.Println(repos)
+	jsonLangs := ""
+	//var commonData map[string]int
+	javaLines := 0
+	goLines := 0
+	pythonLines := 0
+	cLines := 0
+	htmlLines := 0
+	for _, repo := range repos {
+		url := fmt.Sprintf("https://api.github.com/repos/AndriiMaliuta/%s/languages", repo.Name)
+		req, err := http.NewRequest(http.MethodGet, url, nil)
+		req.Header.Add("Authorization", "Bearer "+os.Getenv("GIT_TOKEN"))
+		if err != nil {
+			log.Panicln(err)
+		}
+		resp, err2 := client().Do(req)
+		if err2 != nil {
+			return
+		}
+		langsByte, err3 := ioutil.ReadAll(resp.Body)
+		if err3 != nil {
+			return
+		}
+		var data map[string]int
+		err4 := json.Unmarshal(langsByte, &data)
+		if err4 != nil {
+			log.Panicln(err4)
+		}
+
+		for a := 0; a < len(data); a++ {
+			if _, found := data["Go"]; found {
+				goLines += data["Go"]
+			} else if _, found := data["Java"]; found {
+				javaLines += data["Java"]
+			} else if _, found := data["HTML"]; found {
+				htmlLines += data["HTML"]
+			} else if _, found := data["Python"]; found {
+				pythonLines += data["Python"]
+			} else if _, found := data["C"]; found {
+				cLines += data["C"]
+			}
+		}
+
+		jsonLangs += string(langsByte) + ","
+		log.Println(data)
+		/*
+			{
+			  "Go": 3842,
+			  "Makefile": 183
+			}
+		*/
+		//var mapData map[string]int
+		//mapData, ok := data.(map[string]int)
+		//if !ok {
+		//	log.Println("error when mapping data to map")
+		//}
+	}
+	log.Println(goLines)
+	log.Println(javaLines)
+	log.Println(cLines)
+	log.Println(pythonLines)
 
 }
 
@@ -102,9 +132,6 @@ func AllLinks(urls []string) {
 	}
 }
 
-//
-//
-
 func WaitEx2() {
 	var wg sync.WaitGroup
 	runtime.GOMAXPROCS(50)
@@ -127,6 +154,7 @@ func WaitEx2() {
 	//wg.Wait()
 }
 
-func hClient() http.Client {
-	return http.Client{Timeout: 15 * time.Second}
+func client() *http.Client {
+	client := http.Client{Timeout: 8 * time.Second}
+	return &client
 }

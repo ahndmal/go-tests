@@ -1,0 +1,120 @@
+[
+  {
+    "Vim Script": 9187,
+    "Shell": 1422
+  },
+  {
+    "Makefile": 3915,
+    "Go": 955,
+    "Shell": 932,
+    "Dockerfile": 841
+  },
+  {
+    "JavaScript": 250152,
+    "CSS": 1209,
+    "HTML": 1101
+  },
+  {
+    "HTML": 833,
+    "CSS": 480
+  },
+  {
+    "Java": 13776
+  },
+  {
+    "PowerShell": 349
+  },
+  {
+    "Python": 2859
+  },
+  {
+    "Java": 5510,
+    "Groovy": 4236
+  },
+  {
+    "Go": 13718
+  },
+  {
+    "R": 4723
+  },
+  {
+    "Java": 9895
+  },
+  {
+    "Java": 25745
+  },
+  {
+    "Shell": 24726,
+    "HCL": 480
+  },
+  {
+    "Java": 10444,
+    "JavaScript": 2668,
+    "HTML": 1693,
+    "CSS": 822
+  },
+  {
+    "Java": 42112,
+    "JavaScript": 13779,
+    "Python": 12697,
+    "HTML": 2363,
+    "Shell": 1747
+  },
+  {
+    "JavaScript": 1272323,
+    "C#": 1004955,
+    "HTML": 821027,
+    "TypeScript": 329984,
+    "PowerShell": 130196,
+    "Java": 52049,
+    "Python": 38197,
+    "Shell": 37677,
+    "Batchfile": 16246,
+    "TSQL": 9687,
+    "ASP.NET": 713
+  },
+  {
+    "JavaScript": 180940,
+    "HTML": 56903
+  },
+  {
+    "Go": 86060
+  },
+  {
+    "Groovy": 89609,
+    "Shell": 569
+  },
+  {
+    "Batchfile": 1559
+  },
+  {
+    "Clojure": 879
+  },
+  {
+    "Clojure": 6438
+  },
+  {},
+  {},
+  {
+    "QML": 147942,
+    "C++": 6695,
+    "JavaScript": 3602,
+    "Roff": 1429,
+    "QMake": 1120,
+    "Makefile": 30
+  },
+  {},
+  {
+    "C++": 6285,
+    "CMake": 684,
+    "C": 200
+  },
+  {
+    "Go": 3842,
+    "Makefile": 183
+  },
+  {
+    "Python": 1746,
+    "Makefile": 214
+  }
+]
