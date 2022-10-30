@@ -23,6 +23,9 @@ func main() {
 	pythonLines := 0
 	cLines := 0
 	htmlLines := 0
+	jsLines := 0
+	groovyLines := 0
+	kotlinLines := 0
 	for _, repo := range repos {
 		url := fmt.Sprintf("https://api.github.com/repos/AndriiMaliuta/%s/languages", repo.Name)
 		req, err := http.NewRequest(http.MethodGet, url, nil)
@@ -55,11 +58,20 @@ func main() {
 				pythonLines += data["Python"]
 			} else if _, found := data["C"]; found {
 				cLines += data["C"]
+			} else if _, found := data["JavaScript"]; found {
+				jsLines += data["JavaScript"]
+			} else if _, found := data["Groovy"]; found {
+				groovyLines += data["Groovy"]
+			} else if _, found := data["Kotlin"]; found {
+				kotlinLines += data["Kotlin"]
+			} else if _, found := data["HTML"]; found {
+				htmlLines += data["HTML"]
 			}
+			log.Println(data)
 		}
 
 		jsonLangs += string(langsByte) + ","
-		log.Println(data)
+		//log.Println(data)
 		/*
 			{
 			  "Go": 3842,
@@ -72,10 +84,14 @@ func main() {
 		//	log.Println("error when mapping data to map")
 		//}
 	}
-	log.Println(goLines)
-	log.Println(javaLines)
-	log.Println(cLines)
-	log.Println(pythonLines)
+	log.Printf("GO: %d", goLines)
+	log.Printf("Java: %d", javaLines)
+	log.Printf("C: %d", cLines)
+	log.Printf("Pythond: %d", pythonLines)
+	log.Printf("Groovy: %d", groovyLines)
+	log.Printf("JS: %d", jsLines)
+	log.Printf("Kotlin: %d", kotlinLines)
+	log.Printf("HTML: %d", htmlLines)
 
 }
 
