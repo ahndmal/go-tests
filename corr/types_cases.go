@@ -1,4 +1,4 @@
-package main
+package corr
 
 func SomeCase(x, y interface{}) int {
 	//switch v := x.(type) {
