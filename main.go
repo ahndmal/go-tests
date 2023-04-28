@@ -26,6 +26,9 @@ func main() {
 	jsLines := 0
 	groovyLines := 0
 	kotlinLines := 0
+
+	log.Println("[] \033[34m Starting ...\033[32m")
+
 	for _, repo := range repos {
 		url := fmt.Sprintf("https://api.github.com/repos/AndriiMaliuta/%s/languages", repo.Name)
 		req, err := http.NewRequest(http.MethodGet, url, nil)

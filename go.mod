@@ -1,6 +1,6 @@
 module go-tests
 
-go 1.18
+go 1.20
 
 require (
 	cloud.google.com/go/compute v1.15.1 // indirect
