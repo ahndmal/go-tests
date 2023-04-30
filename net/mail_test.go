@@ -15,12 +15,12 @@ func TestMail(t *testing.T) {
 		IMAP	imap.porkbun.com	993	SSL (SSL/TLS)
 		POP	pop.porkbun.com	995	SSL (SSL/TLS)
 	*/
+
 	// Connect to the remote SMTP server.
 	//client, err := smtp.Dial("smtp.porkbun.com:587")
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
-	//
 	//// Set the sender and recipient first
 	//if err := client.Mail("support@mail.com"); err != nil {
 	//	log.Fatal(err)
