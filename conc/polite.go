@@ -6,6 +6,20 @@ import (
 	"time"
 )
 
+// utilize CSP-style concurrency or memory access synchronization
+// aim for simplicity, use channels when possible, and treat goroutines like a free resource
+type Counter struct {
+	mu    sync.Mutex
+	value int
+}
+
+// M:N scheduler maps M green threads to N OS threads
+func (c *Counter) Increment() {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.value++
+}
+
 func politeGoroutine() {
 	var wg sync.WaitGroup
 	var sharedLock sync.Mutex
