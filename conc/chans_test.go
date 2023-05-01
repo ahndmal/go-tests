@@ -1,11 +1,48 @@
 package conc
 
 import (
+	"bytes"
 	"fmt"
 	"log"
+	"os"
 	"sync"
 	"testing"
 )
+
+func TestBclockChann(t *testing.T) {
+	chanOwner := func() <-chan int {
+		resultStream := make(chan int, 5)
+		go func() {
+			defer close(resultStream)
+			for i := 0; i <= 5; i++ {
+				resultStream <- i
+			}
+		}()
+		return resultStream
+	}
+	resultStream := chanOwner()
+	for result := range resultStream {
+		fmt.Printf("Received: %d\n", result)
+	}
+	fmt.Println("Done receiving!")
+}
+
+func TestBuffChannels(t *testing.T) {
+	var stdoutBuff bytes.Buffer
+	defer stdoutBuff.WriteTo(os.Stdout)
+	intStream := make(chan int, 4)
+	go func() {
+		defer close(intStream)
+		defer fmt.Fprintln(&stdoutBuff, "Producer Done.")
+		for i := 0; i < 5; i++ {
+			fmt.Fprintf(&stdoutBuff, "Sending: %d\n", i)
+			intStream <- i
+		}
+	}()
+	for integer := range intStream {
+		fmt.Fprintf(&stdoutBuff, "Received %v.\n", integer)
+	}
+}
 
 func TestUnblockGoroutines(t *testing.T) {
 	begin := make(chan interface{})
@@ -53,7 +90,7 @@ func TestChannExample(t *testing.T) {
 	fmt.Println(<-stringStream)
 }
 
-func TestChannelsOne(t *testing.T) {
+func TestChannelsTypes(t *testing.T) {
 	var dataStream chan interface{}
 	dataStream = make(chan interface{})
 	log.Println(dataStream)
