@@ -1,11 +1,8 @@
 package conc
 
 import (
-	"fmt"
-	"math/rand"
 	"sync"
 	"testing"
-	"time"
 )
 
 func fanIn(
@@ -38,16 +35,16 @@ func fanIn(
 }
 
 func TestPrimesSlow(t *testing.T) {
-	rand := func() interface{} { return rand.Intn(50000000) }
-	done := make(chan interface{})
-	defer close(done)
-	start := time.Now()
-	randIntStream := toInt(done, repeatFn(done, rand))
-	fmt.Println("Primes:")
-	for prime := range take(done, primeFinder(done, randIntStream), 10) {
-		fmt.Printf("\t%d\n", prime)
-	}
-	fmt.Printf("Search took: %v", time.Since(start))
+	//rand := func() interface{} { return rand.Intn(50000000) }
+	//done := make(chan interface{})
+	//defer close(done)
+	//start := time.Now()
+	//randIntStream := toInt(done, repeatFn(done, rand))
+	//fmt.Println("Primes:")
+	//for prime := range take(done, primeFinder(done, randIntStream), 10) {
+	//	fmt.Printf("\t%d\n", prime)
+	//}
+	//fmt.Printf("Search took: %v", time.Since(start))
 }
 
 func primeFinder(done chan interface{}, stream interface{}) <-chan interface{} {
