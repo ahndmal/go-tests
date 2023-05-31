@@ -15,6 +15,10 @@ import (
 
 func main() {
 	// start
+	UrlPingerAsync2()
+}
+
+func GitLanguages() {
 	repos := fss.ReadJsonGT()
 	jsonLangs := ""
 	//var commonData map[string]int
@@ -95,7 +99,6 @@ func main() {
 	log.Printf("JS: %d", jsLines)
 	log.Printf("Kotlin: %d", kotlinLines)
 	log.Printf("HTML: %d", htmlLines)
-
 }
 
 func UrlPingerAsync2() {
