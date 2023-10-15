@@ -31,6 +31,8 @@ func TestHelloSync(t *testing.T) {
 func TestScopeVars(t *testing.T) {
 	var wg sync.WaitGroup
 	salutation := "\033[32mhello"
+	fmt.Println(salutation)
+
 	wg.Add(1)
 	go func() {
 		defer wg.Done()

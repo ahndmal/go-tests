@@ -47,6 +47,7 @@ func printFarewell(done <-chan interface{}) error {
 	fmt.Printf("%s world!\n", farewell)
 	return nil
 }
+
 func genGreeting(done <-chan interface{}) (string, error) {
 	switch locale, err := locale(done); {
 	case err != nil:
