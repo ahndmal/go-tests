@@ -8,5 +8,10 @@ func Compose(f, g func(x float) float)
     }
 }
 
-print(Compose(sin, cos)(0.5))
+
+func main() {
+   print(Compose(sin, cos)(0.5))
+}
+
+
 
