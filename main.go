@@ -36,10 +36,12 @@ func GitLanguages() {
 	for _, repo := range repos {
 		url := fmt.Sprintf("https://api.github.com/repos/AndriiMaliuta/%s/languages", repo.Name)
 		req, err := http.NewRequest(http.MethodGet, url, nil)
-		req.Header.Add("Authorization", "Bearer "+os.Getenv("GIT_TOKEN"))
 		if err != nil {
-			log.Panicln(err)
+			log.Printf("Error creating request for url: %v", err)
 		}
+
+		req.Header.Add("Authorization", "Bearer "+os.Getenv("GIT_TOKEN"))
+
 		resp, err2 := client().Do(req)
 		if err2 != nil {
 			return
@@ -103,11 +105,11 @@ func GitLanguages() {
 
 func UrlPingerAsync2() {
 	urls := []string{
-		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test", // java
-		"https://us-central1-andmal-bot.cloudfunctions.net/node2",              // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/go-perf-test",       // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/python-perf-test",   // python
-		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",            // dotnet
+		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test",   // java
+		"https://us-west2-silver-adapter-307718.cloudfunctions.net/node-perf-db", // node
+		"https://us-central1-andmal-bot.cloudfunctions.net/go-perf-test",         // node
+		"https://us-central1-andmal-bot.cloudfunctions.net/python-perf-test",     // python
+		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",              // dotnet
 	}
 
 	//OneUrlReq(urls[0], 20)
@@ -139,8 +141,12 @@ func UrlPingerAsync2() {
 func OneUrlReq(url string, times int) {
 	//url := urls[0]
 	for i := 0; i < times; i++ {
-		http.Get(url)
-		fmt.Printf(" -- Req %d for %s is DONE \n", i, url)
+		response, err := http.Get(url)
+		if err != nil {
+			return
+		}
+		status := response.StatusCode
+		fmt.Printf(" -- Req %d for %s DONE. Status: %d \n", i, url, status)
 	}
 }
 

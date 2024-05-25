@@ -6,7 +6,7 @@ import (
 )
 
 func TestStrsOne(t *testing.T) {
-	t.Log("test")
+	t.Log(">>> Initiating test <<<")
 	str := "Hello"
 	res := strings.Split(str, "")
 	println(res)
