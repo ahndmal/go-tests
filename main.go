@@ -105,11 +105,11 @@ func GitLanguages() {
 
 func UrlPingerAsync2() {
 	urls := []string{
-		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test",   // java
-		"https://us-west2-silver-adapter-307718.cloudfunctions.net/node-perf-db", // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/go-perf-test",         // node
-		"https://us-central1-andmal-bot.cloudfunctions.net/python-perf-test",     // python
-		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",              // dotnet
+		"https://us-central1-andmal-bot.cloudfunctions.net/gcp-java-perf-test",        // java
+		"https://us-central1-silver-adapter-307718.cloudfunctions.net/go-test-parser", // Go
+		"https://us-west2-silver-adapter-307718.cloudfunctions.net/node-perf-db",      // node
+		"https://us-central1-andmal-bot.cloudfunctions.net/python-perf-test",          // python
+		"https://us-central1-andmal-bot.cloudfunctions.net/dotnet2",                   // dotnet
 	}
 
 	//OneUrlReq(urls[0], 20)

@@ -3,15 +3,22 @@ package fss
 import (
 	"fmt"
 	"io/fs"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
 )
 
 func TestFilesDocs(t *testing.T) {
-	ioutil.WriteFile("2.txt", []byte("TO ADD THIS LINE"), fs.ModeAppend)
-	err := filepath.WalkDir("/home/malandr/Documents", func(path string, dir fs.DirEntry, err error) error {
+	err := os.WriteFile("2.txt", []byte("TO ADD THIS LINE"), fs.ModeAppend)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Printf("Error getting home directory: %s\n", err)
+	}
+	err = filepath.WalkDir(fmt.Sprintf("%s/Documents", homeDir), func(path string, dir fs.DirEntry, err error) error {
 		fmt.Printf("Path is %s", path)
 		println(dir)
 		return err
@@ -32,7 +39,11 @@ func TestFilesDocs(t *testing.T) {
 func TestReadFs(t *testing.T) {
 	//read file
 	//fs.ReadFile(fs.SubFS(), "1.txt")
-	docsDir, err := os.ReadDir("/home/malandr/docs")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		fmt.Printf("Error getting home directory: %s\n", err)
+	}
+	docsDir, err := os.ReadDir(fmt.Sprintf("%s/Documents", homeDir))
 	if err != nil {
 		return
 	}
