@@ -12,6 +12,8 @@ func TestOne(t *testing.T) {
 	go func() { data++ }()
 	time.Sleep(1 * time.Second) // This is bad!
 	if data == 0 {
+		fmt.Printf("0: the value is %v.\n", data)
+	} else {
 		fmt.Printf("the value is %v.\n", data)
 	}
 }
