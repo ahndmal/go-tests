@@ -5,13 +5,12 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"runtime"
 	"strings"
 	"testing"
 )
 
 func TestReadLogFile(t *testing.T) {
-	//var regexp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
+	var regExp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
 
 	logData, err := os.ReadFile("C:\\logs\\jira\\_prod\\2025\\2025-03-08\\access_log.2025-03-08")
 	if err != nil {
@@ -20,28 +19,48 @@ func TestReadLogFile(t *testing.T) {
 
 	lines := strings.Split(string(logData), "\n")
 
-	var m runtime.MemStats
-	runtime.ReadMemStats(&m)
-	fmt.Printf("Alloc = %s", formatBytes(m.Alloc))
-	fmt.Printf("\tTotalAlloc = %s", formatBytes(m.TotalAlloc))
-	fmt.Printf("\tSys = %s", formatBytes(m.Sys))
-	fmt.Printf("\tNumGC = %v\n", m.NumGC)
+	//var m runtime.MemStats
+	//runtime.ReadMemStats(&m)
+	//fmt.Printf("Alloc = %s", formatBytes(m.Alloc))
+	//fmt.Printf("\tTotalAlloc = %s", formatBytes(m.TotalAlloc))
+	//fmt.Printf("\tSys = %s", formatBytes(m.Sys))
+	//fmt.Printf("\tNumGC = %v\n", m.NumGC)
 
-	println(lines[0])
+	userNames := make(map[string]struct{})
 
-}
+	for _, line := range lines {
+		matchString := regExp.MatchString(line)
 
-func formatBytes(b uint64) string {
-	const unit = 1024
-	if b < unit {
-		return fmt.Sprintf("%d B", b)
+		if matchString {
+			submatch := regExp.FindAllSubmatch([]byte(line), -1)
+
+			//ipData := string(submatch[0][ipIdx])
+			//reqId := string(submatch[0][reqIdx])
+			//username := string(submatch[0][userNameIdx])
+			//timestmp := string(submatch[0][timeIdx])
+			//reqData := string(submatch[0][requestIdx])
+			//clientData := string(submatch[0][clientIdx])
+			//sessionData := string(submatch[0][sessionIdx])
+
+			//for i := 0; i < 7; i++ {
+			//	dataPart := submatch[0][i]
+			//	println(string(dataPart))
+			//}
+
+			username := string(submatch[0][3])
+			if _, exists := userNames[username]; exists {
+				//fmt.Println("")
+			} else {
+				userNames[username] = struct{}{}
+			}
+
+		}
 	}
-	div, exp := int64(unit), 0
-	for n := b / unit; n >= unit; n /= unit {
-		div *= unit
-		exp++
+
+	for key, _ := range userNames {
+		println(key)
 	}
-	return fmt.Sprintf("%.2f %cB", float64(b)/float64(div), "KMGTPE"[exp])
+
 }
 
 func ReadLineByLine() {
@@ -75,14 +94,14 @@ func ReadLineByLine() {
 func TestParseLogs(t *testing.T) {
 
 	//
-	var regexp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
+	var regExp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
 
 	data := "127.0.0.1 158x6583999x2 a.navadiya [08/Mar/2025:02:38:51 -0800] \"GET /rest/internal/2.0/client- HTTP/1.0\" 200 18 6 \"https://jira.ontrq.com/secure/Dashboard.jspa?selectPageId=83502\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\" \"1sx1d6m\""
 
-	matchString := regexp.MatchString(data)
+	matchString := regExp.MatchString(data)
 
 	if matchString {
-		submatch := regexp.FindAllSubmatch([]byte(data), -1)
+		submatch := regExp.FindAllSubmatch([]byte(data), -1)
 
 		//ipIdx := 0
 		//reqIdx := 1
