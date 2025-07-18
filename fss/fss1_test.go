@@ -9,10 +9,6 @@ import (
 )
 
 func TestFilesDocs(t *testing.T) {
-	err := os.WriteFile("2.txt", []byte("TO ADD THIS LINE"), fs.ModeAppend)
-	if err != nil {
-		t.Fatal(err)
-	}
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
@@ -27,6 +23,18 @@ func TestFilesDocs(t *testing.T) {
 		return
 	}
 
+}
+
+func TestWriteFile(t *testing.T) {
+	err := os.WriteFile("resources/2.txt", []byte("TO ADD THIS LINE"), fs.ModeAppend)
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func writingFile(err error) {
+
+	//
 	file, err := os.Create("1.txt")
 	if err != nil {
 		return
