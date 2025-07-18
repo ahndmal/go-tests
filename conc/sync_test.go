@@ -28,7 +28,7 @@ func TestTwo(t *testing.T) {
 	}()
 	memoryAccess.Lock()
 	if data == 0 {
-		fmt.Printf("the value is %v.\n", data)
+		fmt.Printf("data == 0: the value is %v.\n", data)
 	} else {
 		fmt.Printf("the value is %v.\n", data)
 	}

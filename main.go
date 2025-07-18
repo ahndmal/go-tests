@@ -15,7 +15,7 @@ import (
 
 func main() {
 	// start
-	UrlPingerAsync2()
+	MemUsageExe()
 }
 
 func GitLanguages() {
