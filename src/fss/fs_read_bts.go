@@ -2,7 +2,7 @@ package fss
 
 import "bytes"
 
-func ReadFileOne() (byte, error) {
+func ReadOneByte() (byte, error) {
 	msg := "Lorem ipsum"
 	reader := bytes.NewReader([]byte(msg))
 	readByte, err := reader.ReadByte()

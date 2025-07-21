@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestFilesDocs(t *testing.T) {
+func TestReadHomeDirDocs(t *testing.T) {
 
 	homeDir, err := os.UserHomeDir()
 	if err != nil {

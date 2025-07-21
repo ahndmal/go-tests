@@ -8,6 +8,7 @@ import (
 )
 
 var origins = []string{"http://127.0.0.1:8083", "http://localhost:9999"}
+
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,

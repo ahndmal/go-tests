@@ -1,4 +1,4 @@
-package parallel
+package main
 
 
 func Query(conns []Conn, query string) Result {

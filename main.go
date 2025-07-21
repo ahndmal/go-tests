@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"go-tests/fss"
+	"go-tests/src"
+	"go-tests/src/fss"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -15,7 +16,7 @@ import (
 
 func main() {
 	// start
-	MemUsageExe()
+	src.MemUsageExe()
 }
 
 func GitLanguages() {
