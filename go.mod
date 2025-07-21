@@ -1,8 +1,6 @@
 module go-tests
 
-go 1.22
-
-toolchain go1.23.4
+go 1.23.4
 
 require (
 	github.com/apache/pulsar-client-go v0.10.0
