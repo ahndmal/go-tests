@@ -1,7 +1,7 @@
 package net
 
 import (
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"sync"
@@ -27,7 +27,7 @@ func GetData(url string, wg *sync.WaitGroup) {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatalln(err)
 	}

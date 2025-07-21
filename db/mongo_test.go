@@ -39,6 +39,27 @@ type WorkoutDto struct {
 	Year         int    `json:"year"`
 }
 
+func TestGetCats(t *testing.T) {
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI("mongodb://172.17.0.2:27017/cats"))
+	if err != nil {
+		log.Printf("Error connecting to MongoDB: %v", err)
+	}
+
+	defer func() {
+		if err := client.Disconnect(context.TODO()); err != nil {
+			panic(err)
+		}
+	}()
+
+	coll := client.Database("cats").Collection("cats")
+
+	var result bson.M
+
+	coll.FindOne(context.TODO(), bson.D{{"age", 2}}).Decode(&result)
+
+	println(result)
+}
+
 func TestGetWorkouts(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

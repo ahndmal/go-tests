@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-const DIR_NAME = "/home/malandr/Documents/"
+const DirName = "/home/andrii/Documents/"
 
 func TestReadDocs(t *testing.T) {
-	docsDir, err := os.ReadDir(DIR_NAME)
+	docsDir, err := os.ReadDir(DirName)
 	if err != nil {
 		return
 	}
@@ -23,7 +23,7 @@ func TestReadDocs(t *testing.T) {
 	for i := 1; i <= 400; i++ {
 		wg.Add(1)
 		go func(num int) {
-			fileBts, err := os.ReadFile(fmt.Sprintf("%s%s", DIR_NAME, docsDir[num].Name()))
+			fileBts, err := os.ReadFile(fmt.Sprintf("%s%s", DirName, docsDir[num].Name()))
 			if err != nil {
 				fmt.Println(err)
 			}

@@ -2,7 +2,7 @@ package fss
 
 import (
 	"encoding/json"
-	"io/ioutil"
+	"os"
 	"time"
 )
 
@@ -116,7 +116,7 @@ type Repo struct {
 func ReadJsonGT() []Repo {
 	var repos []Repo
 	pth := "/home/malandr/Documents/repos.json"
-	file, err := ioutil.ReadFile(pth)
+	file, err := os.ReadFile(pth)
 	if err != nil {
 		return nil
 	}

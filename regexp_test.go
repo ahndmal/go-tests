@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -19,12 +20,7 @@ func TestReadLogFile(t *testing.T) {
 
 	lines := strings.Split(string(logData), "\n")
 
-	//var m runtime.MemStats
-	//runtime.ReadMemStats(&m)
-	//fmt.Printf("Alloc = %s", formatBytes(m.Alloc))
-	//fmt.Printf("\tTotalAlloc = %s", formatBytes(m.TotalAlloc))
-	//fmt.Printf("\tSys = %s", formatBytes(m.Sys))
-	//fmt.Printf("\tNumGC = %v\n", m.NumGC)
+	//memStats()
 
 	userNames := make(map[string]struct{})
 
@@ -73,7 +69,12 @@ func ReadLineByLine() {
 		return
 	}
 	// 2. Ensure the file is closed at the end of the function
-	defer file.Close()
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			return
+		}
+	}(file)
 
 	// 3. Create a new Scanner for the file
 	scanner := bufio.NewScanner(file)
@@ -93,10 +94,9 @@ func ReadLineByLine() {
 
 func TestParseLogs(t *testing.T) {
 
-	//
 	var regExp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
 
-	data := "127.0.0.1 158x6583999x2 a.navadiya [08/Mar/2025:02:38:51 -0800] \"GET /rest/internal/2.0/client- HTTP/1.0\" 200 18 6 \"https://jira.ontrq.com/secure/Dashboard.jspa?selectPageId=83502\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\" \"1sx1d6m\""
+	data := "127.0.0.1 158x6583999x2 a.navaddi [08/Mar/2025:02:38:51 -0800] \"GET /rest/internal/2.0/client- HTTP/1.0\" 200 18 6 \"https://jira.x.com/secure/Dashboard.jspa?selectPageId=83502\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\" \"1sx1d6m\""
 
 	matchString := regExp.MatchString(data)
 
@@ -110,7 +110,6 @@ func TestParseLogs(t *testing.T) {
 		//requestIdx := 4
 		//clientIdx := 5
 		//sessionIdx := 6
-		//
 		//ipData := string(submatch[0][ipIdx])
 		//reqId := string(submatch[0][reqIdx])
 		//username := string(submatch[0][userNameIdx])
@@ -125,4 +124,13 @@ func TestParseLogs(t *testing.T) {
 		}
 
 	}
+}
+
+func memStats() {
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+	fmt.Printf("Alloc = %s", formatBytes(m.Alloc))
+	fmt.Printf("\tTotalAlloc = %s", formatBytes(m.TotalAlloc))
+	fmt.Printf("\tSys = %s", formatBytes(m.Sys))
+	fmt.Printf("\tNumGC = %v\n", m.NumGC)
 }
