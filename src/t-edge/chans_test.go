@@ -1,4 +1,4 @@
-package tut_edge
+package t_edge
 
 import (
 	"fmt"

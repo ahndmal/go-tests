@@ -2,6 +2,7 @@ package fss
 
 import (
 	"fmt"
+	"github.com/AthenZ/athenz/libs/go/athenz-common/log"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -20,7 +21,7 @@ func TestReadHomeDirDocs(t *testing.T) {
 		return err
 	})
 	if err != nil {
-		return
+		log.Printf("Error walking the path %v \n", err)
 	}
 
 }
@@ -35,7 +36,7 @@ func TestWriteFile(t *testing.T) {
 func writingFile(err error) {
 
 	//
-	file, err := os.Create("1.txt")
+	file, err := os.Create("src/resources/1.txt")
 	if err != nil {
 		return
 	}

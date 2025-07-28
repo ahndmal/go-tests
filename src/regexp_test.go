@@ -96,7 +96,7 @@ func TestParseLogs(t *testing.T) {
 
 	var regExp = regexp.MustCompile("^(\\d+\\.\\d+\\.\\d+\\.\\d+) (.*) (.*) (\\[.*\\]) (\".*\") (\".*\") (\".*\")$")
 
-	data := "127.0.0.1 158x6583999x2 a.navaddi [08/Mar/2025:02:38:51 -0800] \"GET /rest/internal/2.0/client- HTTP/1.0\" 200 18 6 \"https://jira.x.com/secure/Dashboard.jspa?selectPageId=83502\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\" \"1sx1d6m\""
+	data := "127.0.0.1 158x6583999x2 a.user [08/Mar/2025:02:38:51 -0800] \"GET /rest/internal/2.0/client- HTTP/1.0\" 200 18 6 \"https://jira.x.com/secure/Dashboard.jspa?selectPageId=83502\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36\" \"1sx1d6m\""
 
 	matchString := regExp.MatchString(data)
 
